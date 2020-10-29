@@ -1,0 +1,697 @@
+﻿<Window x:Class="ClientApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientApp"
+        mc:Ignorable="d"
+        FontSize="12"
+        Foreground="White"
+        Title="Sample Client" Height="712.5" 
+        Width="1066.5" Background="#FF191927" Closing="Window_Closing"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- Text box for termial-->
+        <!--<ScrollViewer Grid.Column="1" Grid.Row="2" Grid.RowSpan="7" Grid.ColumnSpan="8" HorizontalScrollBarVisibility="Visible">
+        </ScrollViewer>-->
+        <!--Controls for Server Connection-->
+        <TextBox x:Name="TerminalTextBox" Grid.Column="1" Grid.Row="2" Grid.RowSpan="7" Grid.ColumnSpan="8" IsReadOnly="True" Background="Black" 
+                     Foreground="#FF02FF02" HorizontalAlignment="Left" Width="380" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" TextChanged="TerminalTextBox_TextChanged"/>
+
+        <TextBlock Grid.Column="1" HorizontalAlignment="Right" Grid.Row="1" Text="HostIP" Margin="5"/>
+        <TextBox x:Name="HostIP_TextBox" Text="127.0.0.1" Grid.Column="2" Grid.Row="1" Margin="5" Grid.ColumnSpan="2"
+                 Width="80"/>
+        <TextBlock Grid.Column="4"  HorizontalAlignment="Right" Grid.Row="1" Text="Port" Margin="10,5,5,5"/>
+        <TextBox x:Name="Port_TextBox" Text="8888" Grid.Column="5" Grid.Row="1" Margin="5" Grid.ColumnSpan="2"
+                 Width="50"/>
+        <Button x:Name="Connect_Button" Grid.Column="7" Grid.Row="1"
+                Grid.ColumnSpan="1" HorizontalAlignment="Left" Width="80" Content="Connect" Margin="5" Click="Connect_Button_Click"/>
+        <Button x:Name="Disconnect_Button" Grid.Column="7" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="80" Content="Disconnect" Margin="5" Visibility="Hidden" Click="Disconnect_Button_Click"/>
+
+
+        <Button x:Name="Initialize_Button" IsEnabled="False" Grid.Column="9" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Initialize" Margin="0,5,15,5" Click="Initialize_Button_Click"/>
+        <Button x:Name="ClearTerminal_Button" IsEnabled="True" Grid.Column="8" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="50" HorizontalAlignment="Left" Content="Clear" Margin="5" Click="ClearTerminal_Button_Click"/>
+        <Button x:Name="ToolStatusTab_Button" Visibility="Hidden" IsEnabled="true" Grid.Column="9" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="100" HorizontalAlignment="Left" Content="Tool Status" Margin="535,5,0,5" Foreground="White" Background="#FF191927" Click="ToolStatusTab_Button_Click"/>
+
+
+        <Button x:Name="RobotStatusTab_Button" IsEnabled="true" Grid.Column="9" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="100" HorizontalAlignment="Left" Content="Robot Status" Margin="5,5,0,5" Foreground="White" Background="#FF191927" Click="RobotStatusTab_Button_Click"/>
+        <Button x:Name="Foup_1_StatusTab_Button" IsEnabled="true" Grid.Column="9" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="100" HorizontalAlignment="Left" Content="Foup 1 Status" Margin="111,5,0,5" Foreground="White" Background="#FF191927" Click="Foup_1_StatusTab_Button_Click"/>
+        <Button x:Name="Cassette_1_StatusTab_Button" IsEnabled="true" Grid.Column="9" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="100" HorizontalAlignment="Left" Content="Cassette 1 Status" Margin="217,5,0,5" Foreground="White" Background="#FF191927" Click="Cassette_1_StatusTab_Button_Click"/>
+        <Button x:Name="Cassette_2_StatusTab_Button" IsEnabled="true" Grid.Column="9" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="100" HorizontalAlignment="Left" Content="Cassette 2 Status" Margin="324,5,0,5" Foreground="White" Background="#FF191927" Click="Cassette_2_StatusTab_Button_Click"/>
+        <Button x:Name="Foup_2_StatusTab_Button" IsEnabled="true" Grid.Column="9" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="100" HorizontalAlignment="Left" Content="Foup 2 Status" Margin="429,5,0,5" Foreground="White" Background="#FF191927" Click="Foup_2_StatusTab_Button_Click"/>
+
+        
+
+        <GroupBox x:Name="RobotStatus_GroupBox" Visibility="Visible" Grid.Column="9" Header="Robot Status" HorizontalAlignment="Left" 
+                  Height="201" Margin="10,5,0,0" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Top" Width="611">
+            <Grid x:Name="RobotStatus_Grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+
+                <CheckBox x:Name="MotionCmdFail" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Content="Motion Cmd Error" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="RobotErrState" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" Content="Robot Error State" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="WaferOnEndEffector" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" Content="Wafer On End Effector" Foreground="White"  Margin="5" Width="140"/>
+                <CheckBox x:Name="VaccumSwitchOn" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" Content="Vaccum Switch ON" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="SysMotPosErr" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" Content="Motion/Position Error" Foreground="White"  Margin="5" Width="140"/>
+
+                <CheckBox x:Name="SoftwareViolation" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" Content="Software Violation" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="HomeNotExecuted" Grid.Column="4" Grid.Row="3" HorizontalAlignment="Center" Content="Home Not Executed " Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="UserMacroRunning" Grid.Column="4" Grid.Row="4" HorizontalAlignment="Center" Content="User Macro running" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="MotionInProgress" Grid.Column="4" Grid.Row="5" HorizontalAlignment="Center" Content="Motion in Progress" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="ServoOFF" Grid.Column="4" Grid.Row="6" HorizontalAlignment="Center" Content="Servo Off" Margin="5" Foreground="White" Width="140"/>
+
+                <CheckBox x:Name="InSearchMode" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" Content="In Search Mode" Foreground="White" Margin="5" Width="120"/>
+                <CheckBox x:Name="IOFileError" Grid.Column="6" Grid.Row="3" HorizontalAlignment="Center" Content="I/O FIle Error" Foreground="White" Margin="5" Width="120"/>
+                <CheckBox x:Name="WSAActive" Grid.Column="6" Grid.Row="4" HorizontalAlignment="Center" Content="WSA Active" Foreground="White" Margin="5" Width="120"/>
+                <CheckBox x:Name="WaferOnEndEffector_1" Grid.Column="6" Grid.Row="5" HorizontalAlignment="Center" Content="Wafer on Arm 1" Foreground="White" Margin="5" Width="120"/>
+                <CheckBox x:Name="EdgeGripper1_switchON" Grid.Column="6" Grid.Row="6" HorizontalAlignment="Center" Content="Edge Gripper 1 ON" Foreground="White" Margin="5" Width="120"/>
+
+                <CheckBox x:Name="WaferOnEndEffector_2" Grid.Column="8" Grid.Row="2" HorizontalAlignment="Center" Content="Wafer on Arm 2" Foreground="White"  Margin="5" Width="140"/>
+                <CheckBox x:Name="EdgeGripper2_switchON" Grid.Column="8" Grid.Row="3" HorizontalAlignment="Center" Content="Edge Gripper 2 ON" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="SafetyResetNeeded" Grid.Column="8" Grid.Row="4" HorizontalAlignment="Center" Content="Safety Reset needed" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="EnableSpeed" Grid.Column="8" Grid.Row="5" HorizontalAlignment="Center" Content="Enable Speed" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="StatusSpeed" Grid.Column="8" Grid.Row="6" HorizontalAlignment="Center" Content="Status speed" Foreground="White" Margin="5" Width="140"/>
+
+                <CheckBox x:Name="ArmExtended" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" Content="Arm Extended" Foreground="White" Margin="5" Width="140"/>
+                <CheckBox x:Name="ArmRetracted" Grid.Column="4" Grid.Row="7" HorizontalAlignment="Center" Content="Arm Retracted" Foreground="White" Margin="5" Width="120"/>
+                <TextBlock Grid.Column="6" Grid.Row="7" Text="Operating Station" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBox x:Name="OperatingStationtextBox" IsReadOnly="True" Grid.Column="8" Grid.Row="7" Width="80"  FontWeight="Bold" HorizontalAlignment="Left" Margin="2"/>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="Foup_1_Status_GroupBox" Visibility="Hidden" Grid.Column="9" Header="Foup 1 Status" HorizontalAlignment="Left" 
+                  Height="201" Margin="10,5,0,0" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Top" Width="611">
+            <Grid x:Name="Foup_1_Status_Grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="Equipment Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="Mode" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Operation Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="Cassette Presence" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="Clamp Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="6" Text="Latch Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="1" Text="Door Position" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" Text="Z axis Position" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="3" Text="Y axis Position" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="4" Text="Mapper Z axis" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="5" Text="Mapping Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="6" Text="Info Pad" Margin="5" Width="100"/>
+
+                <TextBox x:Name="F1_EquipmentStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="1" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_Mode_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="2" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_OperationStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="3" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_CassettePresence_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="4" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_ClampStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="5" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_LatchStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="6" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_DoorPosition_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="1" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_ZAxisPosition_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="2" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_YAxisPosition_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="3" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_MapperZAxis_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="4" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_MappingStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="5" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F1_InfoPad_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="6" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="Cassette_1_Status_GroupBox" Visibility="Hidden" Grid.Column="9" Header="Cassette 1 Status" HorizontalAlignment="Left" 
+                  Height="201" Margin="10,5,0,0" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Top" Width="611">
+            <Grid x:Name="Cassette_1_Status_Grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="Placed" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="Present" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Clamp" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="Dock" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="Open" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="6" Text="CDA" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="1" Text="Vaccum" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" Text="PDO Raised" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="3" Text="PDO Docked" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="4" Text="Door Latch" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="5" Text="Door Chucked" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="6" Text="Homing Required" Margin="5" Width="100"/>
+
+                <TextBox x:Name="C1_Placed_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="1" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_Present_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="2" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_Clamp_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="3" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_Dock_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="4" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_Open_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="5" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_CDA_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="6" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_Vaccum_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="1" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_PDORaised_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="2" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_PDODocked_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="3" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_DoorLatch_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="4" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_DoorChucked_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="5" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C1_HomingRequired_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="6" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="Cassette_2_Status_GroupBox" Visibility="Hidden" Grid.Column="9" Header="Cassette 2 Status" HorizontalAlignment="Left" 
+                  Height="201" Margin="10,5,0,0" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Top" Width="611">
+            <Grid x:Name="Cassette_2_Status_Grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="Placed" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="Present" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Clamp" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="Dock" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="Open" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="6" Text="CDA" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="1" Text="Vaccum" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" Text="PDO Raised" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="3" Text="PDO Docked" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="4" Text="Door Latch" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="5" Text="Door Chucked" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="6" Text="Homing Required" Margin="5" Width="100"/>
+
+                <TextBox x:Name="C2_Placed_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="1" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_Present_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="2" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_Clamp_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="3" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_Dock_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="4" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_Open_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="5" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_CDA_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="6" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_Vaccum_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="1" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_PDORaised_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="2" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_PDODocked_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="3" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_DoorLatch_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="4" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_DoorChucked_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="5" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="C2_HomingRequired_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="6" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="Foup_2_Status_GroupBox" Visibility="Hidden" Grid.Column="9" Header="Foup 2 Status" HorizontalAlignment="Left" 
+                  Height="201" Margin="10,5,0,0" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Top" Width="611">
+            <Grid x:Name="Foup_2_Status_Grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="Equipment Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="Mode" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Operation Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="Cassette Presence" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="Clamp Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="6" Text="Latch Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="1" Text="Door Position" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="2" Text="Z axis Position" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="3" Text="Y axis Position" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="4" Text="Mapper Z axis" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="5" Text="Mapping Status" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="6" Text="Info Pad" Margin="5" Width="100"/>
+
+                <TextBox x:Name="F2_EquipmentStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="1" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_Mode_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="2" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_OperationStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="3" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_CassettePresence_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="4" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_ClampStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="5" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_LatchStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="2" Grid.Row="6" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_DoorPosition_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="1" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_ZAxisPosition_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="2" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_YAxisPosition_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="3" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_MapperZAxis_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="4" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_MappingStatus_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="5" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+                <TextBox x:Name="F2_InfoPad_TextBox" IsReadOnly="True" Text="" Grid.Column="4" Grid.Row="6" Margin="5" Grid.ColumnSpan="1"
+                 Width="150" FontWeight="Bold"/>
+
+            </Grid>
+        </GroupBox>
+
+
+        <GroupBox x:Name="ToolStatus_GroupBox" Grid.Column="9" Header="Tool Status" HorizontalAlignment="Left" 
+                  Height="201" Visibility="Hidden" Margin="10,5,0,0" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Top" Width="609">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="DEVICE ID" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="2" Grid.Row="1" Text="CONNECTION" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="3" Grid.Row="1" Text="STATE" Visibility ="Hidden"  Margin="5" Width="100"/>
+
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="R1" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="P1" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="P2" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="5" Text="P3" Margin="5" Width="100"/>
+                <TextBlock Grid.Column="1" Grid.Row="6" Text="P4" Margin="5" Width="100"/>
+
+                <TextBlock x:Name="RobotConnection_TextBlock" Grid.Column="2" Grid.Row="2" Text="--" Margin="5" Width="100"/>
+                <TextBlock x:Name="P1Connection_TextBlock" Grid.Column="2" Grid.Row="3" Text="--" Margin="5" Width="100"/>
+                <TextBlock x:Name="P2Connection_TextBlock" Grid.Column="2" Grid.Row="4" Text="--" Margin="5" Width="100"/>
+                <TextBlock x:Name="P3Connection_TextBlock" Grid.Column="2" Grid.Row="5" Text="--" Margin="5" Width="100"/>
+                <TextBlock x:Name="P4Connection_TextBlock" Grid.Column="2" Grid.Row="6" Text="--" Margin="5" Width="100"/>
+
+                <TextBlock x:Name="RobotStatus_TextBlock" Grid.Column="3" Grid.Row="2" Text="--" Visibility ="Hidden" Margin="5" Width="100"/>
+                <TextBlock x:Name="P1Status_TextBlock" Grid.Column="3" Grid.Row="3" Text="--" Margin="5" Visibility ="Hidden" Width="100"/>
+                <TextBlock x:Name="P2Status_TextBlock" Grid.Column="3" Grid.Row="4" Text="--" Margin="5" Visibility ="Hidden" Width="100"/>
+                <TextBlock x:Name="P3Status_TextBlock" Grid.Column="3" Grid.Row="5" Text="--" Margin="5" Visibility ="Hidden" Width="100"/>
+                <TextBlock x:Name="P4Status_TextBlock" Grid.Column="3" Grid.Row="6" Text="--" Margin="5" Visibility ="Hidden" Width="100"/>
+
+            </Grid>
+        </GroupBox>
+
+
+
+
+
+
+
+
+        <!--Controls for Robot Operation-->
+        <GroupBox x:Name="RobotControls_GroupBox" IsEnabled="False" Grid.Column="9" Header="Robot Controls" HorizontalAlignment="Left" 
+                   Margin="10,5,0,0" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Top" Width="611">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="Robot ID"/>
+                <ComboBox x:Name="Robot_ComboBox" Grid.Column="2" Grid.Row="1"
+                          Grid.ColumnSpan="2" Width="100" Margin="5"/>
+                <TextBlock Grid.Column="4" Grid.Row="1" Text="Blade "/>
+                <ComboBox x:Name="Blade_ComboBox" Grid.Column="5" Grid.Row="1"
+                          Grid.ColumnSpan="2" Width="100" Margin="5"/>
+
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="Source Station"/>
+                <ComboBox x:Name="SrcStation_ComboBox" Grid.Column="2" Grid.Row="2"
+                          Grid.ColumnSpan="2" Width="100" Margin="5"/>
+                <TextBlock Grid.Column="4" Grid.Row="2" Text="Slot "/>
+                <ComboBox x:Name="SrcSlot_ComboBox" Grid.Column="5" Grid.Row="2"
+                          Grid.ColumnSpan="2" Width="100" Margin="5"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Destination Station"/>
+                <ComboBox x:Name="DstStation_ComboBox" Grid.Column="2" Grid.Row="3"
+                          Grid.ColumnSpan="2" Width="100" Margin="5"/>
+                <TextBlock Grid.Column="4" Grid.Row="3" Text="Slot "/>
+                <ComboBox x:Name="DstSlot_ComboBox" Grid.Column="5" Grid.Row="3"
+                          Grid.ColumnSpan="2" Width="100" Margin="5"/>
+
+                <Button x:Name="Move_Button" Grid.Column="9" Grid.Row="3"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Move" Margin="5" Click="Move_Button_Click"/>
+                <Button x:Name="GetWafer_Button" Grid.Column="8" Grid.Row="3"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Get Wafer" Margin="5" Click="GetWafer_Button_Click"/>
+                <Button x:Name="PutWafer_Button" Grid.Column="8" Grid.Row="4"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Put Wafer" Margin="5" Click="PutWafer_Button_Click"/>
+                <Button x:Name="TransferWafer_Button" Grid.Column="9" Grid.Row="4"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Transfer Wafer" Margin="5" Click="TransferWafer_Button_Click"/>
+                <Button x:Name="ErrorReset_Button" Grid.Column="9" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Reset" Margin="5" Click="ErrorReset_Button_Click"/>
+                <Button x:Name="Map_Button" Grid.Column="9" Grid.Row="2"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Map" Margin="5" Click="Map_Button_Click"/>
+                <Button x:Name="Scan_Button" Grid.Column="8" Grid.Row="2"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Scan" Margin="5" Click="Scan_Button_Click"/>
+                <Button x:Name="ServoOn_Button" Grid.Column="8" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Servo ON" Margin="5" Click="ServoOn_Button_Click"/>
+                <Button x:Name="ServoOff_Button" Grid.Column="8" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="80" HorizontalAlignment="Right" Content="Servo OFF" Margin="5" Visibility="Hidden" Click="ServoOff_Button_Click"/>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="StationControls_GroupBox" IsEnabled="False" Grid.Column="9" Header="Station" HorizontalAlignment="Left" 
+                  Height="217" Margin="10,5,0,0" Grid.Row="6" VerticalAlignment="Top" Width="271" Grid.RowSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+
+                <RadioButton x:Name="P1_RadioButton" Grid.Column="1" Grid.Row="1" Content="Foup LP 1" 
+                             Foreground="White" Margin="5"/>
+                <RadioButton x:Name="P2_RadioButton" Grid.Column="1" Grid.Row="2" Content="Cassette 1" 
+                             Foreground="White" Margin="5"/>
+                <RadioButton x:Name="P3_RadioButton" Grid.Column="1" Grid.Row="3" Content="Cassette 2" 
+                             Foreground="White" Margin="5"/>
+                <RadioButton x:Name="P4_RadioButton" Grid.Column="1" Grid.Row="4" Content="Foup LP 2" 
+                             Foreground="White" Margin="5"/>
+
+                
+                
+                <Button x:Name="Load_Button" Grid.Column="4" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Load" Margin="5" Click="Load_Button_Click"/>
+                <Button x:Name="Unload_Button" Grid.Column="5" Grid.Row="1"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Unload" Margin="5" Click="Unload_Button_Click"/>
+                <Button x:Name="Latch_Button" Grid.Column="4" Grid.Row="2"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Latch" Margin="5" Click="Latch_Button_Click"/>
+                <Button x:Name="Unlatch_Button" Grid.Column="5" Grid.Row="2"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Unlatch" Margin="5" Click="Unlatch_Button_Click" />
+                <Button x:Name="Dock_Button" Grid.Column="4" Grid.Row="3"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Dock" Margin="5" Click="Dock_Button_Click"/>
+                <Button x:Name="Undock_Button" Grid.Column="5" Grid.Row="3"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Undock" Margin="5" Click="Undock_Button_Click"/>
+                <Button x:Name="OpenDoor_Button" Grid.Column="4" Grid.Row="4"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Open" Margin="5" Click="OpenDoor_Button_Click"/>
+                <Button x:Name="CloseDoor_Button" Grid.Column="5" Grid.Row="4"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Close" Margin="5" Click="CloseDoor_Button_Click"/>
+                <Button x:Name="LPMap_Button" Visibility="Hidden" Grid.Column="4" Grid.Row="5"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Map" Margin="5" Click="LPMap_Button_Click"/>
+                <Button x:Name="FetchMap_Button" Visibility="Hidden" Grid.Column="5" Grid.Row="5"
+                Grid.ColumnSpan="1" Width="60" HorizontalAlignment="Right" Content="Fetch" Margin="5" Click="FetchMap_Button_Click"/>
+                <Button x:Name="UpdateStatus_Button" Grid.Column="4" Grid.Row="5"
+                Grid.ColumnSpan="2" Width="130" HorizontalAlignment="Center" Content="Update Status" Margin="5.2,5.2,5.6,0" Click="UpdateStatus_Button_Click" Height="19" VerticalAlignment="Top"/>
+               
+                <Button x:Name="TowerLampStatus" Grid.Column="4" Grid.Row="6"
+                Grid.ColumnSpan="2" Width="130" HorizontalAlignment="Center" Content="TowerLamp Status" Margin="5" Click="TowerLampStatus_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="Position_GroupBox" IsEnabled="False" Grid.Column="9" Header="Position" HorizontalAlignment="Left" 
+                  Height="217" Margin="286,5,0,0" Grid.Row="6" VerticalAlignment="Top" Width="335" Grid.RowSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="HomeAxis_Button" Grid.Column="7" Grid.Row="3" Grid.ColumnSpan="1"
+                        Width="50" HorizontalAlignment="Right" Content="Home" Margin="5" Click="HomeAxis_Button_Click"/>
+                <Button x:Name="RobotAxisPosition_Button" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2"
+                        Width="80" HorizontalAlignment="Right" Content="Position" Margin="5" Click="RobotAxisPosition_Button_Click"/>
+
+                <Button x:Name="HomeTAxis_Button" Grid.Column="6" Grid.Row="2" Width="50" HorizontalAlignment="Right"
+                        Content="Home" Margin="5" Click="HomeAxis_Button_Click"/>
+                <Button x:Name="HomeR1Axis_Button" Grid.Column="6" Grid.Row="3" Width="50" HorizontalAlignment="Right"
+                        Content="Home" Margin="5" Click="HomeAxis_Button_Click"/>
+                <Button x:Name="HomeR2Axis_Button" Grid.Column="6" Grid.Row="4" Width="50" HorizontalAlignment="Right"
+                        Content="Home" Margin="5" Click="HomeAxis_Button_Click"/>
+                <Button x:Name="HomeZAxis_Button" Grid.Column="6" Grid.Row="5" Width="50" HorizontalAlignment="Right"
+                        Content="Home" Margin="5" Click="HomeAxis_Button_Click"/>
+                <Button x:Name="HomeKAxis_Button" Grid.Column="6" Grid.Row="6" Width="50" HorizontalAlignment="Right"
+                        Content="Home" Margin="5" Click="HomeAxis_Button_Click"/>
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Grid.Row="2" Text="T" Margin="5"/>
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Grid.Row="3" Text="R1" Margin="5"/>
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Grid.Row="4" Text="R2" Margin="5"/>
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Grid.Row="5" Text="Z" Margin="5"/>
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Grid.Row="6" Text="K" Margin="5"/>
+                <TextBox x:Name="TAxis_textBox" IsReadOnly="True" Grid.Column="3" Grid.Row="2" Width="80" Grid.ColumnSpan="2" Margin="5" FontWeight="Bold"/>
+                <TextBox x:Name="R1Axis_textBox" IsReadOnly="True" Grid.Column="3" Grid.Row="3" Width="80" Grid.ColumnSpan="2" Margin="5" FontWeight="Bold"/>
+                <TextBox x:Name="R2Axis_textBox" IsReadOnly="True" Grid.Column="3" Grid.Row="4" Width="80" Grid.ColumnSpan="2" Margin="5" FontWeight="Bold"/>
+                <TextBox x:Name="ZAxis_textBox" IsReadOnly="True" Grid.Column="3" Grid.Row="5" Width="80" Grid.ColumnSpan="2" Margin="5" FontWeight="Bold"/>
+                <TextBox x:Name="KAxis_textBox" IsReadOnly="True" Grid.Column="3" Grid.Row="6" Width="80" Grid.ColumnSpan="2" Margin="5" FontWeight="Bold"/>
+                <TextBlock Grid.Column="5" HorizontalAlignment="Right" Grid.Row="1" Text="Speed" Margin="5"/>
+
+                <Button x:Name="Stop_Button" Grid.Column="7" Grid.Row="2"
+                Grid.ColumnSpan="1" Width="50" HorizontalAlignment="Center" Content="Stop" Margin="5" Click="Stop_Button_Click"/>
+
+
+                <TextBlock Visibility="Hidden" Grid.Column="5" HorizontalAlignment="Right" Grid.Row="2" Text="Speed" Margin="5"/>
+                <TextBlock Visibility="Hidden" Grid.Column="5" HorizontalAlignment="Right" Grid.Row="3" Text="Speed" Margin="5"/>
+                <TextBlock Visibility="Hidden" Grid.Column="5" HorizontalAlignment="Right" Grid.Row="4" Text="Speed" Margin="5"/>
+                <TextBlock Visibility="Hidden" Grid.Column="5" HorizontalAlignment="Right" Grid.Row="5" Text="Speed" Margin="5"/>
+                <TextBlock Visibility="Hidden" Grid.Column="5" HorizontalAlignment="Right" Grid.Row="6" Text="Speed" Margin="5"/>
+                <TextBox x:Name="AllAxisSpeed_textBox" IsReadOnly="False" Grid.Column="6" Grid.Row="1" Width="50" Margin="5" FontWeight="Bold"/>
+                <TextBox x:Name="TAxisSpeed_textBox" Visibility="Hidden" IsReadOnly="False" Grid.Column="6" Grid.Row="2" Width="50" Margin="5" FontWeight="Bold" />
+                <TextBox x:Name="R1AxisSpeed_textBox" Visibility="Hidden" IsReadOnly="False" Grid.Column="6" Grid.Row="3" Width="50" Margin="5" FontWeight="Bold"/>
+                <TextBox x:Name="R2AxisSpeed_textBox" Visibility="Hidden" IsReadOnly="False" Grid.Column="6" Grid.Row="4" Width="50" Margin="5" FontWeight="Bold" />
+                <TextBox x:Name="ZAxisSpeed_textBox" Visibility="Hidden" IsReadOnly="False" Grid.Column="6" Grid.Row="5" Width="50" Margin="5" FontWeight="Bold"/>
+                <TextBox x:Name="KAxisSpeed_textBox" Visibility="Hidden" IsReadOnly="False" Grid.Column="6" Grid.Row="6" Width="50" Margin="5" FontWeight="Bold"/>
+                <Button x:Name="SetAxisSpeed_Button" Grid.Column="7" Grid.Row="1" Width="50" HorizontalAlignment="Right"
+                        Content="Set" Margin="0,5,5,0" Height="20" VerticalAlignment="Top"/>
+                <Button x:Name="SetTAxisSpeed_Button" Visibility="Hidden" Grid.Column="7" Grid.Row="2" Width="50" HorizontalAlignment="Right"
+                        Content="Set" Margin="5"/>
+                <Button x:Name="SetR1AxisSpeed_Button" Visibility="Hidden" Grid.Column="7" Grid.Row="3" Width="50" HorizontalAlignment="Right"
+                        Content="Set" Margin="5"/>
+                <Button x:Name="SetR2AxisSpeed_Button" Visibility="Hidden" Grid.Column="7" Grid.Row="4" Width="50" HorizontalAlignment="Right"
+                        Content="Set" Margin="5"/>
+                <Button x:Name="SetZAxisSpeed_Button" Visibility="Hidden" Grid.Column="7" Grid.Row="5" Width="50" HorizontalAlignment="Right"
+                        Content="Set" Margin="5"/>
+                <Button x:Name="SetKAxisSpeed_Button" Visibility="Hidden" Grid.Column="7" Grid.Row="6" Width="50" HorizontalAlignment="Right"
+                        Content="Set" Margin="5"/>
+
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Grid.Row="1" Text="All" Margin="5"/>
+
+
+            </Grid>
+        </GroupBox>
+
+
+
+
+
+
+    </Grid>
+</Window>

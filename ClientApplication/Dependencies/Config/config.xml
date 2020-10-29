@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--<Module>
+  <RobotModule ModuleID ="R1" Port ="1" >
+    --><!--<Position T="-1.00" R1="500.67" R2="49.00" Z="-45.00" K="87.00"/>--><!--
+  </RobotModule>
+  <StationModule ModuleID ="P1" Port ="2" SType ="Foup">
+    <Position T="-2.00" R1="500.67" R2="20.00" Z="-26.00" K="67.00"/>
+  </StationModule>
+  <StationModule ModuleID ="P2" Port ="2" SType ="Cassette">
+    <Position T="-3.15" R1="600.67" R2="30.00" Z="-36.00" K="77.00"/>
+  </StationModule>
+  <StationModule ModuleID ="P3" Port ="2" SType ="Cassette">
+    <Position T="-4.25" R1="700.67" R2="40.00" Z="-46.00" K="87.00"/>
+  </StationModule>
+  <StationModule ModuleID ="P4" Port ="2" SType ="Foup">
+    <Position T="-5.65" R1="800.67" R2="50.00" Z="-56.00" K="97.00"/>
+  </StationModule>
+  --><!--<StationModule ModuleID ="P5" Port ="2" SType ="BuildStation" />--><!--
+  --><!--<StationModule ModuleID ="P6" Port ="2" SType ="LaserModule" />--><!--
+</Module>-->
+
+<Module>
+  <RobotModule ModuleID ="R1" Port ="1" >
+    <!--<Position T="-1.00" R1="500.67" R2="49.00" Z="-45.00" K="87.00"/>-->
+  </RobotModule>
+  <FoupLoadPort ModuleID ="P1" Port ="2">
+    <Position T="-2.00" R1="500.67" R2="20.00" Z="-26.00" K="67.00"/>
+  </FoupLoadPort>
+  <CassetteLoadPort ModuleID ="P2" Port ="3">
+    <Position T="-3.15" R1="600.67" R2="30.00" Z="-36.00" K="77.00"/>
+  </CassetteLoadPort>
+  <CassetteLoadPort ModuleID ="P3" Port ="4">
+    <Position T="-4.25" R1="700.67" R2="40.00" Z="-46.00" K="87.00"/>
+  </CassetteLoadPort>
+  <FoupLoadPort ModuleID ="P4" Port ="5">
+    <Position T="-5.65" R1="800.67" R2="50.00" Z="-56.00" K="97.00"/>
+  </FoupLoadPort>
+  <TowerLamp ModuleID ="TL" Port ="6">
+    
+  </TowerLamp>
+
+
+  <CustomerStation ModuleID ="CS1" Port ="7">
+    <Position T="0" R1="0" R2="0" Z="0" K="0"/>
+
+  </CustomerStation>
+  <CustomerStation ModuleID ="CS2" Port ="8">
+    <Position T="0" R1="0" R2="0" Z="0" K="0"/>
+  </CustomerStation>
+  <CustomerStation ModuleID ="CS3" Port ="9">
+    <Position T="0" R1="0" R2="0" Z="0" K="0"/>
+  </CustomerStation>
+  <CustomerStation ModuleID ="CS4" Port ="10">
+    <Position T="0" R1="0" R2="0" Z="0" K="0"/>
+  </CustomerStation>
+  <!--<StationModule ModuleID ="P5" Port ="2" SType ="BuildStation" />-->
+  <!--<StationModule ModuleID ="P6" Port ="2" SType ="LaserModule" />-->
+</Module>
